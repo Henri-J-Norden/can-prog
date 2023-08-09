@@ -20,6 +20,7 @@ Command-line tool to flashing devices by CAN-BUS.
 ## Requirements
 - Compatible PC CAN-BUS adapter 
 - Linux + Python3
+- can-utils
 - Enabled SocketCAN driver
 - Board with STM32 with CAN interface
 
