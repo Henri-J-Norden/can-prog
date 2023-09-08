@@ -45,7 +45,8 @@ def config_parser():
     
     group = parser.add_argument_group('configuration')
     group.add_argument('-n', dest='name', action='store', default='slcan0', help='interface name (default: slcan0)')
-    group.add_argument('-i', dest='interface', action='store', choices=('socketcan',), default='socketcan', help='interface type (default: socketcan)')
+    group.add_argument('-i', dest='interface', action='store', default='socketcan', help='interface type (default: socketcan)')
+    group.add_argument('-b', dest='baud_rate', action='store', default=125000, type=int, help='interface baud rate (default: 125000)')
     group.add_argument('-f', dest='format', action='store', choices=('hex','bin'), default='hex', help='file format (default: hex)')
     
     subparsers = parser.add_subparsers(title='protocols', dest='protocol')
@@ -205,9 +206,8 @@ def main():
     
     if params.verbose:
         canprog.logger.set_level(canprog.logger.logging.DEBUG)
-    
-    if params.interface == 'socketcan':
-        iface = can.interface.Bus(channel=params.name, bustype='socketcan')
+
+    iface = can.interface.Bus(channel=params.name, bustype=params.interface, bitrate=params.baud_rate)
     
     datafile = file.FileManager()
     

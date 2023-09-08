@@ -28,10 +28,7 @@ import time
 
 from canprog.logger import log
 
-if 'win' in sys.platform.lower():
-    current_time = time.clock
-else:
-    current_time = time.time
+current_time = time.time
     
 def canframe_to_string(msg):
 
