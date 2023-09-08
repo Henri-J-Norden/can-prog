@@ -69,7 +69,9 @@ def config_parser():
     group.add_argument('-a', dest='address', action='store', type=lambda x: int(x,0), default=0x08000000, help='start memory address (default: 0x08000000)')
     group = parser_command.add_argument_group('arguments')    
     group.add_argument('input', action='store', help='input filename')
-    
+
+    parser_command = subparsers_stm32.add_parser('info', help='get information about target')
+
     parser_command = subparsers_stm32.add_parser('read', help='read target memory to file')
     parser_command._optionals.title = 'others' 
     group = parser_command.add_argument_group('options')
@@ -245,6 +247,8 @@ def main():
             unlock(protocol)            
         elif params.command == 'speed':
             speed(protocol, params.bps)
+        elif params.command == 'info':
+            pass
         else:
             log.info('Nothing to do...')
         

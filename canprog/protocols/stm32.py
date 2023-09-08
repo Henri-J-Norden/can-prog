@@ -188,6 +188,10 @@ class STM32Protocol(AbstractProtocol):
             v['support'] = True if k in commands else False
 
         self._bootloader_version = '{}.{}'.format((boot_version>>4)&0x0F, (boot_version)&0x0F)
+
+        cmd_strs = [f"\n\t[{'supported' if v['support'] else 'NOT supported'}] {v['name']} ({hex(k)})"
+                    for k, v in self._supported_commands.items()]
+        log.debug(f'Supported commands: {"".join(cmd_strs)}')
     
     @_check_support(CMD_GET_VERSION)
     def _get_version(self):
